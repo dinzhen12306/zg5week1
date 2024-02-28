@@ -1,0 +1,64 @@
+syntax = "proto3";
+option go_package = ".;user";
+package stream;
+
+message UserInfo {
+  int64     Id         = 10;
+  string    Username   = 20;
+  string    Password   = 30;
+  Sex       Sex        = 40;
+  int64     CreateTime = 50;
+  string    Text       = 60;
+  string    School     = 70;
+  int64     UID        = 80;
+  string    Title      = 90;
+}
+enum Sex{
+  default = 0;
+  Man     = 1;
+  Woman   = 2;
+}
+service User {
+  rpc CreateUser(CreateUserReq) returns (CreateUserResp);
+  rpc DeleteUser(DeleteUserReq) returns (DeleteUserResp);
+  rpc UpdateUser(UpdateUserReq) returns (UpdateUserResp);
+  rpc GetUser(GetUserReq) returns (GetUserResp);
+  rpc GetUsers(GetUsersReq) returns (GetUsersResp);
+}
+
+message CreateUserReq {
+  UserInfo user = 10;
+}
+message CreateUserResp {
+  UserInfo user = 10;
+}
+
+message DeleteUserReq {
+  int64 userID = 1;
+}
+message DeleteUserResp {}
+
+message UpdateUserReq {
+  UserInfo user = 10;
+}
+message UpdateUserResp {
+  UserInfo user = 10;
+}
+
+message GetUserReq {
+  map<string,string> where = 10;
+}
+message GetUserResp {
+  UserInfo user = 10;
+}
+
+message GetUsersReq {
+  int64 limit = 10;
+  int64 offset = 20;
+}
+message GetUsersResp {
+  repeated UserInfo users = 10;
+  int64 count = 20;
+}
+
+
